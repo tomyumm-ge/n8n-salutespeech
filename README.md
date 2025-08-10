@@ -1,48 +1,79 @@
 ![Banner image](https://user-images.githubusercontent.com/10284570/173569848-c624317f-42b1-45a6-ab09-f0ea3c247648.png)
 
-# n8n-nodes-starter
+# n8n-nodes-salutespeech
 
-This repo contains example nodes to help you get started building your own custom integrations for [n8n](https://n8n.io). It includes the node linter and other dependencies.
+***Неофициальный Community-узел. Разработано энтузиастами. Официальные интеграции смотрите на [developers.sber.ru](https://developers.sber.ru/dev).***
 
-To make your custom node available to the community, you must create it as an npm package, and [submit it to the npm registry](https://docs.npmjs.com/packages-and-modules/contributing-packages-to-the-registry).
+## Disclaimer
 
-If you would like your node to be available on n8n cloud you can also [submit your node for verification](https://docs.n8n.io/integrations/creating-nodes/deploy/submit-community-nodes/).
+Все права на товарные знаки, логотипы [[1]](./credentials/LOGO.md) [[2]](./nodes/SaluteSpeech/LOGO.md) и иные обозначения принадлежат их законным правообладателям. Товарный знак «Сбер», логотипы и наименования сервисов Сбера являются собственностью ПАО «СберБанк». Настоящий проект не является официальным продуктом Сбера и создан независимым разработчиком в некоммерческих целях.
 
-## Prerequisites
+Это программное обеспечение предоставляется «как есть», без каких-либо явных или подразумеваемых гарантий, включая, но не ограничиваясь, гарантией товарной пригодности или пригодности для конкретной цели. Автор не несёт ответственности за любые убытки, включая упущенную выгоду, возникшие в результате использования этого ПО. Использование — на ваш страх и риск.
 
-You need the following installed on your development machine:
+Проект носит экспериментальный характер и может быть неидеальным для Production.
 
-* [git](https://git-scm.com/downloads)
-* Node.js and npm. Minimum version Node 20. You can find instructions on how to install both using nvm (Node Version Manager) for Linux, Mac, and WSL [here](https://github.com/nvm-sh/nvm). For Windows users, refer to Microsoft's guide to [Install NodeJS on Windows](https://docs.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-windows).
-* Install n8n with:
-  ```
-  npm install n8n -g
-  ```
-* Recommended: follow n8n's guide to [set up your development environment](https://docs.n8n.io/integrations/creating-nodes/build/node-development-environment/).
+## Описание
 
-## Using this starter
+В этом репозитории находятся n8n-узлы для работы с **SaluteSpeech API** от Сбера:
 
-These are the basic steps for working with the starter. For detailed guidance on creating and publishing nodes, refer to the [documentation](https://docs.n8n.io/integrations/creating-nodes/).
+* **Распознавание речи (Speech-to-Text)**
+* **Синтез речи (Text-to-Speech)**
 
-1. [Generate a new repository](https://github.com/n8n-io/n8n-nodes-starter/generate) from this template repository.
-2. Clone your new repo:
-   ```
-   git clone https://github.com/<your organization>/<your-repo-name>.git
-   ```
-3. Run `npm i` to install dependencies.
-4. Open the project in your editor.
-5. Browse the examples in `/nodes` and `/credentials`. Modify the examples, or replace them with your own nodes.
-6. Update the `package.json` to match your details.
-7. Run `npm run lint` to check for errors or `npm run lintfix` to automatically fix errors when possible.
-8. Test your node locally. Refer to [Run your node locally](https://docs.n8n.io/integrations/creating-nodes/test/run-node-locally/) for guidance.
-9. Replace this README with documentation for your node. Use the [README_TEMPLATE](README_TEMPLATE.md) to get started.
-10. Update the LICENSE file to use your details.
-11. [Publish](https://docs.npmjs.com/packages-and-modules/contributing-packages-to-the-registry) your package to npm.
+Эти узлы позволяют подключиться к API на высоком уровне, без необходимости вручную отправлять HTTP-запросы и обрабатывать бинарные данные.
 
-## More information
+Чтобы установить узлы, перейдите в настройки n8n, вкладка **Community Nodes**.
 
-Refer to our [documentation on creating nodes](https://docs.n8n.io/integrations/creating-nodes/) for detailed information on building your own nodes.
+📌 **Ссылка на npm**: *[n8n-nodes-salutespeech](https://www.npmjs.com/package/n8n-nodes-salutespeech)*
 
-## License
+⭐️ Если узлы оказались полезными — поставьте звезду на репозиторий. Посмотрим, сколько нас!
 
-[MIT](https://github.com/n8n-io/n8n-nodes-starter/blob/master/LICENSE.md)
+---
+
+### Синтез речи (Text-to-Speech)
+
+![Speech-to-Text node](./screenshots/screenshot_1.png)
+
+* **Выбор голоса и частоты дискретизации**: гибкая настройка звучания.
+* **Поддержка форматов**: `wav16`, `pcm16`, `opus`, `alaw`, `g729`.
+* **Прямой вывод в binary**: готовый аудиофайл можно сразу отправить или сохранить.
+* **Применение**: автоматическая генерация аудиосообщений, озвучка уведомлений, голосовые ответы чат-ботов.
+
+---
+
+### Распознавание речи (Speech-to-Text)
+
+![Text-to-Speech node](./screenshots/screenshot_2.png)
+
+* **Поддержка популярных форматов**: WAV, PCM, OGG (Opus) и др.
+* **Гибкие настройки**: можно выбрать язык и модель распознавания.
+* **Интеграция в процессы**: автоматическое преобразование голосовых сообщений в текст.
+
+---
+
+## Локальная разработка / запуск
+
+В папке с репозиторием:
+
+```bash
+npm install
+npm run build
+npm link
+```
+
+В инстансе n8n:
+
+```bash
+npm i -g n8n # если ещё не установлен
+# Если запускаете впервые — выполните команду "n8n"
+cd ~/.n8n
+mkdir custom && cd custom
+npm init -y
+npm link n8n-nodes-salutespeech
+n8n
+```
+
+---
+
+## Лицензия
+
+[MIT](./LICENSE.md)
