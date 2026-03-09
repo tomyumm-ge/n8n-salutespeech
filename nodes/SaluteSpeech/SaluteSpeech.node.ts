@@ -340,7 +340,7 @@ export class SaluteSpeech implements INodeType {
 					const channelsCount = this.getNodeParameter('channelsCount', 0) as number;
 					const combineArray = this.getNodeParameter('combineArray', 0) as boolean;
 					const itemBinaryData = items[i].binary![binaryPropertyName];
-					const itemBuffer = Buffer.from(itemBinaryData.data, BINARY_ENCODING);
+					const itemBuffer = await this.helpers.getBinaryDataBuffer(i, binaryPropertyName);
 
 					let mimeType = itemBinaryData.mimeType;
 
