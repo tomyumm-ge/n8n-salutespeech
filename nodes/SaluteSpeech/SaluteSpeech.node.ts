@@ -1,10 +1,8 @@
 import {
-	BINARY_ENCODING,
 	IExecuteFunctions,
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
-	NodeConnectionType,
 	NodeExecutionWithMetadata,
 	NodeOperationError,
 } from 'n8n-workflow';
@@ -29,10 +27,8 @@ export class SaluteSpeech implements INodeType {
 			name: 'SaluteSpeech API',
 		},
 		description: 'Transform your voice into text',
-		// eslint-disable-next-line
-		inputs: [NodeConnectionType.Main],
-		// eslint-disable-next-line
-		outputs: [NodeConnectionType.Main],
+		inputs: ['main'],
+		outputs: ['main'],
 		credentials: [
 			{
 				name: 'saluteSpeechApi',
